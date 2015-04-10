@@ -56,7 +56,7 @@
                 $(".container").html(_saida);
 
             }
-            generate2D(9,9);
+            generate2D(15,15);
 
         });
     </script>
@@ -135,15 +135,8 @@
 
         function animationTest(x,y) {
 
-            estrela(x,y, 1);
-            var time = setInterval(function() {
-            setTimeout(function() {  clear("background-color","white"); estrela(x,y, 2); }, 100);
-            setTimeout(function() {  clear("background-color","white"); estrela(x,y, 3); }, 200);
-            setTimeout(function() {  clear("background-color","white"); estrela(x,y, 4); }, 300);
-            setTimeout(function() {  clear("background-color","white"); estrela(x,y, 3); }, 400);
-            setTimeout(function() {  clear("background-color","white"); estrela(x,y, 2); }, 500);
-            setTimeout(function() {  clear("background-color","white"); estrela(x,y, 1); }, 600);
-            },800);
+            estrela(x,y, 3);
+
 
         }
 
