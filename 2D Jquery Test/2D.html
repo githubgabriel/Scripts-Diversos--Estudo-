@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>2D estudos..</title>
+    <script src="jquery.js"></script>
+    <style>
+        body { font-size:50px;}
+        .r { position:relative; }
+        .b { font-weight: bold; }
+        .cel { width:80px; float:left; border: 1px solid #ccc;  text-align:center; padding-top:10px;}
+        .cl { clear: both; }
+        .container { left: 50px;}
+        .cord-x { top: 58px; }
+        .cord-y { left: 22px; }
+
+    </style>
+
+    <script>
+        $(function () {
+
+
+
+
+
+
+            function generate2D(x,y) {
+
+                $("input[name=y]").val(y);
+                $("input[name=x]").val(x);
+
+                var SIZE_X = x;
+                var SIZE_Y = y;
+                var SIZE = eval(SIZE_X) * eval(SIZE_Y);
+
+                var _saida = "";
+                var controler_x = 1;
+                var controler_y = 1;
+                for(var i = 1; i <= SIZE;i++) {
+
+                   if(controler_y <= SIZE_Y) {
+
+                        _saida += '<div onclick="return clik(this);" class="cel" rel="'+controler_x+'_'+controler_y+'"> 1 </div>';
+                       controler_y++;
+
+                   } else {
+
+                       _saida += '   <div class="cl"> </div> ';
+                       i--;
+                       controler_y = 1;
+                       controler_x++;
+
+                   }
+
+                }
+                $(".container").html(_saida);
+
+            }
+            generate2D(9,9);
+
+        });
+    </script>
+</head>
+    <body>
+<input type="hidden" name="x" value="" />
+<input type="hidden" name="y" value="" />
+
+    <span class="r b cord-x">X</span>
+    <span class="b r cord-y">Y</span>
+
+    <div class="r container">
+
+    </div>
+
+    <script>
+
+     function clik(obj) {
+
+        var bruto = $(obj).attr("rel");
+        c = bruto.split("_");
+        c.x = c[0];
+        c.y = c[1];
+
+        clear("background-color", "white");
+
+        console.log("CLICK: X: "+ c.x + " Y:" + c.y);
+
+         animationTest(c.x, c.y);
+
+    }
+
+    function clear(sd,sf) {
+        $("div.cel").css(sd, sf);
+    }
+
+    function setCordinate(x,y) {
+
+        var MAX = $("input[name=x]").val();
+        var MIN = 1;
+        var STYLE = true;
+        console.log("Ser cordinate: X:" + x + " Y:" + y + "");
+
+        if(x > MAX) { console.log("Não foi possivel localizar X["+x+"]. Max: "+MAX); if(STYLE) {  x = MAX; } }
+        if((y > MAX)) { console.log("Não foi possivel localizar Y["+y+"]. Max: "+MAX); if(STYLE) {  y = MAX; } }
+        if((x < MIN)) { console.log("Não foi possivel localizar X["+x+"]. MIN: "+MIN); if(STYLE) {  x = MIN; } }
+        if((y < MIN)) { console.log("Não foi possivel localizar Y["+y+"]. MIN: "+MIN); if(STYLE) {  y = MIN; } }
+
+        var cord = $("div[rel=" + x + "_" + y + "]");
+
+        cord.css("background-color", "red");
+
+    }
+
+
+    function estrela(x,y, ds) {
+
+        var distance = ds;
+
+        for(var i =0; i < distance;i++) {
+
+            setCordinate(eval(x)-i,eval(y)+i);
+
+            setCordinate(eval(x)-i,eval(y)-i);
+
+            setCordinate(x,y);
+
+            setCordinate(eval(x)+i,eval(y)-i);
+
+            setCordinate(eval(x)+i,eval(y)+i);
+
+
+        }
+
+    }
+
+        function animationTest(x,y) {
+
+            estrela(x,y, 1);
+            var time = setInterval(function() {
+            setTimeout(function() {  clear("background-color","white"); estrela(x,y, 2); }, 100);
+            setTimeout(function() {  clear("background-color","white"); estrela(x,y, 3); }, 200);
+            setTimeout(function() {  clear("background-color","white"); estrela(x,y, 4); }, 300);
+            setTimeout(function() {  clear("background-color","white"); estrela(x,y, 3); }, 400);
+            setTimeout(function() {  clear("background-color","white"); estrela(x,y, 2); }, 500);
+            setTimeout(function() {  clear("background-color","white"); estrela(x,y, 1); }, 600);
+            },800);
+
+        }
+
+
+    </script>
+
+</body>
+</html>
